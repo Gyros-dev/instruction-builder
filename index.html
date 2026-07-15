@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KASSIR.RU — конструктор инструкций</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <img src="assets/kassir.png" alt="KASSIR.RU">
+    <div>
+      <h1>Конструктор инструкций</h1>
+      <p>Соберите пошаговую инструкцию со скриншотами и скачайте готовый HTML или PDF.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel editor-panel">
+      <div class="panel-title">
+        <div><span class="eyebrow">Настройки документа</span><h2>Основная информация</h2></div>
+        <button class="button ghost" id="resetBtn" type="button">Очистить</button>
+      </div>
+
+      <label>Название инструкции<input id="mainTitle" type="text" value="Как выполнить действие в системе"></label>
+      <label>Краткое описание<textarea id="intro" rows="3">Кратко опишите, для чего нужна эта инструкция и какой результат получит пользователь.</textarea></label>
+
+      <div class="grid two">
+        <label>Раздел / продукт<input id="product" type="text" value="TicketRain" placeholder="Например: Личный кабинет"></label>
+        <label>Дата обновления<input id="updatedAt" type="text" inputmode="numeric" maxlength="10" placeholder="ДД.ММ.ГГГГ" autocomplete="off"></label>
+      </div>
+      <div class="grid two">
+        <label>Для кого инструкция<input id="audience" type="text" placeholder="Например: администраторы"></label>
+        <label>Примерное время<input id="duration" type="text" placeholder="Например: 5 минут"></label>
+      </div>
+
+      <details class="optional" open>
+        <summary>Важная информация перед началом</summary>
+        <label>Что потребуется<textarea id="requirements" rows="3" placeholder="Например: доступ администратора, номер заказа, браузер Chrome"></textarea></label>
+        <label>Предупреждение<textarea id="warning" rows="3" placeholder="Оставьте пустым, если предупреждение не нужно"></textarea></label>
+      </details>
+
+      <div class="section-head">
+        <div><span class="eyebrow">Содержание</span><h2>Шаги инструкции</h2></div>
+      </div>
+      <div id="items"></div>
+      <div class="add-item-bottom">
+        <button class="button primary" id="addItemBtn" type="button">+ Добавить шаг</button>
+      </div>
+
+      <details class="optional">
+        <summary>Завершение инструкции</summary>
+        <label>Результат<textarea id="result" rows="3" placeholder="Что должно получиться после выполнения всех шагов"></textarea></label>
+        <label>Что делать, если не получилось<textarea id="troubleshooting" rows="3" placeholder="Дополнительная проверка или способ обратиться за помощью"></textarea></label>
+        <label>Автор / ответственное лицо<input id="author" type="text" value="Команда KASSIR.RU"></label>
+      </details>
+
+      <div class="actions">
+        <button class="button primary large" id="copyHtmlBtn" type="button">Копировать HTML-код</button>
+        <button class="button large" id="downloadBtn" type="button">Скачать HTML</button>
+        <button class="button large" id="downloadPdfBtn" type="button">Скачать PDF</button>
+        <button class="button" id="saveJsonBtn" type="button">Сохранить черновик</button>
+        <label class="button file-button">Загрузить черновик<input id="loadJsonInput" type="file" accept="application/json"></label>
+      </div>
+      <p class="hint">HTML-файл автономный: логотип и изображения встраиваются внутрь. Для PDF откроется системное окно печати — выберите «Сохранить как PDF».</p>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="panel-title"><div><span class="eyebrow">Предпросмотр</span><h2>Готовая инструкция</h2></div></div>
+      <iframe id="preview" title="Предпросмотр инструкции"></iframe>
+    </section>
+  </main>
+
+  <template id="itemTemplate">
+    <article class="item-card">
+      <div class="item-toolbar">
+        <span class="drag-label">Шаг <b class="item-number"></b></span>
+        <div>
+          <button type="button" class="icon-button move-up" title="Выше">↑</button>
+          <button type="button" class="icon-button move-down" title="Ниже">↓</button>
+          <button type="button" class="icon-button danger remove" title="Удалить">×</button>
+        </div>
+      </div>
+      <label>Название шага<input class="item-title" type="text" placeholder="Например: Откройте раздел «Заказы»"></label>
+      <label>Описание действия</label>
+      <div class="rich-editor-wrap">
+        <div class="rich-toolbar" role="toolbar" aria-label="Форматирование описания">
+          <button type="button" class="format-button" data-command="bold" title="Жирный"><b>Ж</b></button>
+          <button type="button" class="format-button" data-command="italic" title="Курсив"><i>К</i></button>
+          <button type="button" class="format-button" data-command="underline" title="Подчёркнутый"><u>Ч</u></button>
+          <button type="button" class="format-button" data-command="insertUnorderedList">• Список</button>
+          <button type="button" class="format-button" data-command="insertOrderedList">1. Список</button>
+          <button type="button" class="format-button add-link">Ссылка</button>
+          <button type="button" class="format-button" data-command="removeFormat">Очистить</button>
+        </div>
+        <div class="item-text rich-editor" contenteditable="true" data-placeholder="Подробно опишите, что нужно нажать или заполнить"></div>
+      </div>
+      <label>Подсказка или примечание<input class="item-note" type="text" placeholder="Необязательно"></label>
+      <div class="image-row">
+        <label class="button file-button">Добавить скриншот<input class="item-image" type="file" accept="image/*"></label>
+        <button type="button" class="button remove-image" hidden>Убрать скриншот</button>
+        <span class="image-name">Скриншот не выбран</span>
+      </div>
+      <label>Подпись под скриншотом<input class="item-caption" type="text" placeholder="Необязательно"></label>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
