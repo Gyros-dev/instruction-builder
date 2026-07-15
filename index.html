@@ -86,14 +86,28 @@
       <label>Описание действия</label>
       <div class="rich-editor-wrap">
         <div class="rich-toolbar" role="toolbar" aria-label="Форматирование описания">
-          <button type="button" class="format-button" data-command="bold" title="Жирный"><b>Ж</b></button>
-          <button type="button" class="format-button" data-command="italic" title="Курсив"><i>К</i></button>
-          <button type="button" class="format-button" data-command="underline" title="Подчёркнутый"><u>Ч</u></button>
-          <button type="button" class="format-button" data-command="insertUnorderedList">• Список</button>
-          <button type="button" class="format-button" data-command="insertOrderedList">1. Список</button>
-          <button type="button" class="format-button add-link">Ссылка</button>
-          <button type="button" class="format-button" data-command="removeFormat">Очистить</button>
+          <div class="toolbar-group" aria-label="Начертание">
+            <button type="button" class="format-button compact" data-command="bold" title="Жирный"><b>Ж</b></button>
+            <button type="button" class="format-button compact" data-command="italic" title="Курсив"><i>К</i></button>
+            <button type="button" class="format-button compact" data-command="underline" title="Подчёркнутый"><u>Ч</u></button>
+          </div>
+          <div class="toolbar-group" aria-label="Выравнивание">
+            <button type="button" class="format-button compact" data-command="justifyLeft" title="По левому краю">≡←</button>
+            <button type="button" class="format-button compact" data-command="justifyCenter" title="По центру">≡</button>
+            <button type="button" class="format-button compact" data-command="justifyRight" title="По правому краю">→≡</button>
+          </div>
+          <div class="toolbar-group" aria-label="Списки">
+            <button type="button" class="format-button" data-command="insertUnorderedList" title="Маркированный список">• Список</button>
+            <button type="button" class="format-button" data-command="insertOrderedList" title="Нумерованный список">1. Список</button>
+          </div>
+          <div class="toolbar-group" aria-label="Вставка">
+            <button type="button" class="format-button add-link" title="Добавить ссылку">Ссылка</button>
+            <button type="button" class="format-button add-code" title="Вставить блок кода">&lt;/&gt; Код</button>
+            <button type="button" class="format-button add-break" title="Принудительный перенос строки">↵ Перенос</button>
+          </div>
+          <button type="button" class="format-button" data-command="removeFormat" title="Удалить форматирование">Очистить</button>
         </div>
+        <div class="editor-help">Enter — новый абзац, Shift+Enter — перенос строки. Для HTML, JavaScript и других фрагментов используйте кнопку «Код».</div>
         <div class="item-text rich-editor" contenteditable="true" data-placeholder="Подробно опишите, что нужно нажать или заполнить"></div>
       </div>
       <label>Подсказка или примечание<input class="item-note" type="text" placeholder="Необязательно"></label>
