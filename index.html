@@ -49,9 +49,17 @@
         <button class="button primary" id="addItemBtn" type="button">+ Добавить шаг</button>
       </div>
 
-      <details class="optional">
+      <details class="optional" id="ending">
         <summary>Завершение инструкции</summary>
         <label>Результат<textarea id="result" rows="3" placeholder="Что должно получиться после выполнения всех шагов"></textarea></label>
+        <div class="image-row">
+          <label class="button file-button">Добавить скриншот<input id="resultImageInput" type="file" accept="image/*"></label>
+          <button type="button" class="button" id="resultPasteBtn" title="Вставить изображение, скопированное в буфер обмена">Вставить из буфера</button>
+          <button type="button" class="button" id="resultRemoveImageBtn" hidden>Убрать скриншот</button>
+          <span class="image-name" id="resultImageStatus">Скриншот не выбран</span>
+          <span class="paste-image-hint">Можно также скопировать изображение и нажать ⌘V внутри этого блока.</span>
+        </div>
+        <label>Подпись под скриншотом<input id="resultCaption" type="text" placeholder="Необязательно"></label>
         <label>Что делать, если не получилось<textarea id="troubleshooting" rows="3" placeholder="Дополнительная проверка или способ обратиться за помощью"></textarea></label>
         <label>Автор / ответственное лицо<input id="author" type="text" value="Команда KASSIR.RU"></label>
       </details>
